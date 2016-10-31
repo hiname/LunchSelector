@@ -62,57 +62,36 @@ public class Ladder extends AppCompatActivity {
                     makeRndDotPoint();
 
                     Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.china);
-                    bmp1 = getResizedBitmap(bmp1, 72, 72);
+                    bmp1 = ResMgr.getResizedBitmap(bmp1, 72, 72);
                     userList.add(new User(bmp1, wPart * 1, 0));
 
                     Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.gs);
-                    bmp2 = getResizedBitmap(bmp2, 72, 72);
+                    bmp2 = ResMgr.getResizedBitmap(bmp2, 72, 72);
                     userList.add(new User(bmp2, wPart * 2, 0));
 
                     Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.jpn);
-                    bmp3 = getResizedBitmap(bmp3, 72, 72);
+                    bmp3 = ResMgr.getResizedBitmap(bmp3, 72, 72);
                     userList.add(new User(bmp3, wPart * 3, 0));
 
                     Bitmap bmp4 = BitmapFactory.decodeResource(getResources(), R.drawable.kor);
-                    bmp4 = getResizedBitmap(bmp4, 72, 72);
+                    bmp4 = ResMgr.getResizedBitmap(bmp4, 72, 72);
                     userList.add(new User(bmp4, wPart * 4, 0));
 
                     Bitmap bmp5 = BitmapFactory.decodeResource(getResources(), R.drawable.snack);
-                    bmp5 = getResizedBitmap(bmp5, 72, 72);
+                    bmp5 = ResMgr.getResizedBitmap(bmp5, 72, 72);
                     userList.add(new User(bmp5, wPart * 5, 0));
-
-
 
                     invalidate();
                 }
             });
         }
 
-        public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-            int width = bm.getWidth();
-            int height = bm.getHeight();
-            float scaleWidth = ((float) newWidth) / width;
-            float scaleHeight = ((float) newHeight) / height;
-            // CREATE A MATRIX FOR THE MANIPULATION
-            Matrix matrix = new Matrix();
-            // RESIZE THE BIT MAP
-            matrix.postScale(scaleWidth, scaleHeight);
-
-            // "RECREATE" THE NEW BITMAP
-            Bitmap resizedBitmap = Bitmap.createBitmap(
-                    bm, 0, 0, width, height, matrix, false);
-            bm.recycle();
-            return resizedBitmap;
-        }
-
-        int ldWidth, ldHeight;
         int wPart, hPart = 20;
         int startX = 100, endX = 0;
         int startY = 100, endY = 500;
         int yLength = endY - startY;
         int vertSize = 5;
-        // ArrayList<Integer> dotPointX = new ArrayList<Integer>();
-        // ArrayList<Integer> dotPointY = new ArrayList<Integer>();
+
         ArrayList<Integer> problemDotIdx = new ArrayList<Integer>();
         ArrayList<User> userList = new ArrayList<User>();
         ArrayList<DotPoint> dotPointList = new ArrayList<DotPoint>();
@@ -139,8 +118,6 @@ public class Ladder extends AppCompatActivity {
             public String getDirection() {
                 return direction;
             }
-
-
 
             public void move() {
 
@@ -244,6 +221,7 @@ public class Ladder extends AppCompatActivity {
                 nowUser.move();
 
                 canvas.drawBitmap(nowUser.bitmap, userX - (nowUser.bitmap.getWidth() / 2), userY - (nowUser.bitmap.getHeight() / 2), null);
+                canvas.drawRect(wPart * 1 - (36), 560 - 36, wPart * 1 + 72 - 36, 632 - 36, dotPaint);
                 // canvas.drawCircle(userX, userY, 5.0f, userPaint);
                 Log.d("d", "userList.get(i).x, y : " + userList.get(i).x + ", " + userList.get(i).y);
                 String dpPrint = "";
